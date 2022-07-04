@@ -5,6 +5,8 @@ using Service.Services.Interfaces;
 using Presentation;
 using Persistence.Repositories.Interfaces;
 using Persistence.Repositories.Implementation;
+using Microsoft.OpenApi.Models;
+using StockMaster.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,34 @@ IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettin
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description = "Example: 'Bearer abc...'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }, Scheme = "oauth2",
+                    Name = "Bearer",
+                    In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    });
+});
 
 builder.Services.AddScoped<IServiceWrapper, ServiceWrapper>();
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
@@ -34,6 +63,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<TokenMiddleware>();
 
 app.UseHttpsRedirection();
 

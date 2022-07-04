@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.DTO.User;
+using Service.Notations;
 using Service.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -28,7 +29,23 @@ namespace Presentation.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest();
+            }
+        }
+
+        [Route("login")]
+        [HttpPost]
+        public IActionResult LoginUser(UserDto user)
+        {
+            try
+            {
+                var token = _services.UserService.GenerateToken(user);
+
+                return Ok(token);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
             }
         }
 
@@ -43,11 +60,12 @@ namespace Presentation.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest();
             }
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult UpdateUser(UserDto user)
         {
             try
@@ -63,6 +81,7 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public IActionResult Delete(UserDto user)
         {
             try

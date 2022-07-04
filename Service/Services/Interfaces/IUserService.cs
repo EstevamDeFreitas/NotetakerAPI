@@ -15,5 +15,7 @@ namespace Service.Services.Interfaces
         void Update(UserDto user);
         void Delete(UserDto user);
         bool VerifyIfEmailIsInUse(string email);
+        bool VerifyIfUserExists(Guid userId);
+        string GenerateToken(UserDto user);
     }
 }
