@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Persistence.Migrations
 {
     [DbContext(typeof(NotetakerContext))]
     partial class NotetakerContextModelSnapshot : ModelSnapshot
@@ -35,7 +35,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("ntr_email");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -44,8 +45,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
                         .HasColumnName("ntr_password");
 
                     b.HasKey("Id");

@@ -12,7 +12,7 @@ namespace Service.Services.Interfaces
         //List<UserDto> GetAllUsers();
         bool VerifyIfUserExists(UserDto user);
         void Create(UserCreateDto user);
-        void Update(UserDto user);
+        void Update(UserUpdateDto user);
         void Delete(UserDto user);
         bool VerifyIfEmailIsInUse(string email);
         bool VerifyIfUserExists(Guid userId);

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Persistence.Migrations
 {
-    public partial class createduserentity : Migration
+    public partial class creationuser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,10 +14,10 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     ntr_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ntr_email = table.Column<string>(type: "text", nullable: false),
-                    ntr_password = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
-                    ntr_dt_creation = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ntr_dt_modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    ntr_email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    ntr_password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    ntr_dt_creation = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ntr_dt_modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {

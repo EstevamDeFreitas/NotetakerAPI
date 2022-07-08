@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Service.Services.Interfaces
 {
-    public interface IServiceWrapper
+    public interface IAccessVerifier
     {
-        IUserService UserService { get; }
-        IAccessVerifier AccessVerifier { get; }
+        bool VerifyAccess(Guid bearerId, string ownerEmail);
     }
 }

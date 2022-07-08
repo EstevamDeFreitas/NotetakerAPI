@@ -17,22 +17,6 @@ namespace Presentation.Controllers
             _services = services;
         }
 
-        [Route("validate")]
-        [HttpPost]
-        public IActionResult ValidateUser(UserDto user)
-        {
-            try
-            {
-                var userExists = _services.UserService.VerifyIfUserExists(user);
-
-                return Ok(userExists);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest();
-            }
-        }
-
         [Route("login")]
         [HttpPost]
         public IActionResult LoginUser(UserDto user)
@@ -66,10 +50,14 @@ namespace Presentation.Controllers
 
         [HttpPut]
         [Authorize]
-        public IActionResult UpdateUser(UserDto user)
+        public IActionResult UpdateUser(UserUpdateDto user)
         {
             try
             {
+                var userId = Guid.Parse(HttpContext.Items["User"].ToString());
+
+                _services.AccessVerifier.VerifyAccess(userId, user.Email);
+
                 _services.UserService.Update(user);
 
                 return Ok();

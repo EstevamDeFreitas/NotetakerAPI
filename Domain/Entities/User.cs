@@ -13,10 +13,11 @@ namespace Domain.Entities
     {
         [Required]
         [Column("ntr_email")]
+        [MaxLength(50)]
         public string Email { get; set; }
         [Required]
         [Column("ntr_password")]
-        [MaxLength(25, ErrorMessage = "Password must be 25 characters or less"), MinLength(8,ErrorMessage = "Password must be at least 8 characters long")]
+        [MaxLength(255), MinLength(8)]
         public string Password { get; set; }
     }
 }
