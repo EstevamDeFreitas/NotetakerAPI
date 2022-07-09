@@ -9,6 +9,7 @@ namespace Persistence.Repositories.Interfaces
     public interface IRepositoryWrapper
     {
         IUserRepository UserRepository { get; }
+        INoteRepository NoteRepository { get; }
         void Save();
     }
 }

@@ -13,16 +13,29 @@ namespace Persistence.Repositories.Implementation
     {
         private NotetakerContext _dbContext;
         private IUserRepository _userRepository;
+        private INoteRepository _noteRepository;
         public IUserRepository UserRepository
         {
             get 
             {
-                if( _userRepository == null)
+                if( _userRepository is null)
                 {
                     _userRepository = new UserRepository(_dbContext);
                 }
 
                 return _userRepository;
+            }
+        }
+
+        public INoteRepository NoteRepository
+        {
+            get 
+            { 
+                if(_noteRepository is null)
+                {
+                    _noteRepository = new NoteRepository(_dbContext);
+                }
+                return _noteRepository; 
             }
         }
 
