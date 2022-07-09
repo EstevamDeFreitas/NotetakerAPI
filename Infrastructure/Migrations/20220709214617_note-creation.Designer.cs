@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(NotetakerContext))]
-    partial class NotetakerContextModelSnapshot : ModelSnapshot
+    [Migration("20220709214617_note-creation")]
+    partial class notecreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +63,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("ntr_notes");
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -93,7 +95,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ntr_users");
+                    b.ToTable("ntr_user");
                 });
 
             modelBuilder.Entity("Domain.Entities.Note", b =>

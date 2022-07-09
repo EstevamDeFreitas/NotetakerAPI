@@ -11,6 +11,7 @@ namespace Infrastructure.Database
     public class NotetakerContext : DbContext
     {
         DbSet<User> Users { get; set; }
+        DbSet<Note> Notes { get; set; }
         public NotetakerContext(DbContextOptions<NotetakerContext> options) : base(options)
         {
 

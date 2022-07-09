@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    [Table("ntr_user")]
+    [Table("ntr_users")]
     public class User : EntityBase
     {
         [Required]
@@ -19,5 +19,7 @@ namespace Domain.Entities
         [Column("ntr_password")]
         [MaxLength(255), MinLength(8)]
         public string Password { get; set; }
+
+        public IEnumerable<Note> Notes { get; set; }
     }
 }
