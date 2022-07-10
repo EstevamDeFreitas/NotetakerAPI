@@ -20,6 +20,6 @@ namespace Domain.Entities
         [MaxLength(255), MinLength(8)]
         public string Password { get; set; }
 
-        public IEnumerable<Note> Notes { get; set; }
+        public IEnumerable<UserNote> UserNotes { get; set; }
     }
 }

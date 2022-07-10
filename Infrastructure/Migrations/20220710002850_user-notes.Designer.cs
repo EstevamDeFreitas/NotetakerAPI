@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(NotetakerContext))]
-    partial class NotetakerContextModelSnapshot : ModelSnapshot
+    [Migration("20220710002850_user-notes")]
+    partial class usernotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,38 +94,23 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserNote", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid")
-                        .HasColumnName("ntr_id");
+                        .HasColumnName("ntr_user_id");
 
                     b.Property<int>("AccessLevel")
                         .HasColumnType("integer")
                         .HasColumnName("ntr_access_level");
 
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("ntr_dt_creation");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("ntr_dt_modified");
-
                     b.Property<Guid>("NoteId")
                         .HasColumnType("uuid")
                         .HasColumnName("ntr_note_id");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ntr_user_id");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("NoteId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ntr_user_notes");
+                    b.ToTable("UserNotes");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserNote", b =>

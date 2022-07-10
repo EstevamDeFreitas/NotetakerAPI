@@ -20,13 +20,9 @@ namespace Domain.Entities
         [MaxLength(255)]
         public string Description { get; set; }
         [Required]
-        [Column("ntr_owner_id")]
-        [ForeignKey("Owner")]
-        public Guid OwnerId { get; set; }
-        [Required]
         [Column("ntr_style")]
         public int Style { get; set; }
 
-        public User Owner { get; set; }
+        public IEnumerable<UserNote> UserNotes { get; set; }
     }
 }
