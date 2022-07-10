@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace Service.DTO.Note
         public string Title { get; set; }
         public string Description { get; set; }
         public int Style { get; set; }
+        public AccessLevel AccessLevel { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace Persistence.Repositories.Implementation
         private NotetakerContext _dbContext;
         private IUserRepository _userRepository;
         private INoteRepository _noteRepository;
+        private IUserNoteRepository _userNoteRepository;
         public IUserRepository UserRepository
         {
             get 
@@ -36,6 +37,18 @@ namespace Persistence.Repositories.Implementation
                     _noteRepository = new NoteRepository(_dbContext);
                 }
                 return _noteRepository; 
+            }
+        }
+
+        public IUserNoteRepository UserNoteRepository
+        {
+            get
+            {
+                if(_userNoteRepository is null)
+                {
+                    _userNoteRepository = new UserNoteRepository(_dbContext);
+                }
+                return _userNoteRepository;
             }
         }
 
