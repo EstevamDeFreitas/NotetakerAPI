@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Exceptions.User
+namespace Service.Exceptions.Note
 {
     [Serializable]
-    public class UserDoesntExist : Exception
+    public class NoteDoNotExist : Exception
     {
-        public UserDoesntExist() : base("User doesn't exists.") { }
+        public NoteDoNotExist() : base("Note doesn't exists.") { }
     }
 }

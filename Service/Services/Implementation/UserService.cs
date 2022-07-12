@@ -91,7 +91,7 @@ namespace Service.Services.Implementation
 
             if (exists is null)
             {
-                throw new UserDoesntExist();
+                throw new UserDoNotExist();
             }
 
             var token = _tokenService.GenerateToken(exists);

@@ -24,12 +24,12 @@ namespace Service.Services.Implementation
 
             if (bearerEmail is null)
             {
-                throw new UserDoesntExist();
+                throw new UserDoNotExist();
             }
 
             if(bearerEmail.Email != ownerEmail)
             {
-                throw new UserDoesntExist();
+                throw new UserDoNotExist();
             }
 
             return true;

@@ -10,5 +10,6 @@ namespace Service.Services.Interfaces
     {
         IUserService UserService { get; }
         IAccessVerifier AccessVerifier { get; }
+        INoteService NoteService { get; }
     }
 }

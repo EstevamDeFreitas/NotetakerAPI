@@ -13,6 +13,7 @@ namespace Service.Services.Implementation
     {
         private readonly Lazy<IUserService> _userService;
         private readonly Lazy<IAccessVerifier> _accessVerifier;
+        private readonly Lazy<INoteService> _noteService;
 
         public ServiceWrapper(IRepositoryWrapper repository, IConfiguration configuration)
         {
@@ -22,5 +23,7 @@ namespace Service.Services.Implementation
         public IUserService UserService => _userService.Value;
 
         public IAccessVerifier AccessVerifier => _accessVerifier.Value;
+
+        public INoteService NoteService => _noteService.Value;  
     }
 }
