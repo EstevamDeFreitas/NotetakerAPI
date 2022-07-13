@@ -19,6 +19,7 @@ namespace Service.Services.Implementation
         {
             _userService = new Lazy<IUserService>(() => new UserService(repository, configuration));
             _accessVerifier = new Lazy<IAccessVerifier>(() => new AccessVerifier(repository));
+            _noteService = new Lazy<INoteService>(() => new NoteService(repository));
         }
         public IUserService UserService => _userService.Value;
 
