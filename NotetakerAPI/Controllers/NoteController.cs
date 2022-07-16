@@ -87,5 +87,44 @@ namespace NotetakerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("share")]
+        [HttpPost]
+        [Authorize]
+        public IActionResult ShareNote([FromBody] UserNoteDto userNote)
+        {
+            try
+            {
+                var userId = Guid.Parse(HttpContext.Items["User"].ToString());
+
+                _services.NoteService.Share(userNote, userId);
+
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("share")]
+        [HttpPut]
+        [Authorize]
+        public IActionResult ChangeAccessNote([FromBody] UserNoteDto userNote)
+        {
+            try
+            {
+                var userId = Guid.Parse(HttpContext.Items["User"].ToString());
+
+                _services.NoteService.ChangeAccess(userNote, userId);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

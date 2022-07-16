@@ -30,4 +30,11 @@ namespace Service.DTO.Note
         public string Description { get; set; }
         public int Style { get; set; }
     }
+
+    public class UserNoteDto
+    {
+        public Guid NoteId { get; set; }
+        public string UserEmail { get; set; }
+        public AccessLevel AccessLevel { get; set; }
+    }
 }

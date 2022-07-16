@@ -13,9 +13,9 @@ namespace Service.Services.Interfaces
         void Create(NoteCreateDto note, Guid userId);
         void Update(NoteDto note, Guid userId);
         void Delete(Guid noteId, Guid userId);
-        void Share(Guid noteId, Guid userId, string userEmail, AccessLevel accessLevel);
+        void Share(UserNoteDto userNote, Guid userId);
         void RemoveAccess(Guid noteId, Guid userId, string userEmail);
-        void ChangeAccess(Guid noteId, Guid userId, string userEmail, AccessLevel accessLevel);
+        void ChangeAccess(UserNoteDto userNoteUpdate, Guid userId);
         List<NoteDto> GetNotes(Guid userId);
         bool HasAccess(Guid userId, Guid noteId, AccessLevel accessLevel);
     }
