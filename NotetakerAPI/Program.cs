@@ -7,6 +7,7 @@ using Persistence.Repositories.Interfaces;
 using Persistence.Repositories.Implementation;
 using Microsoft.OpenApi.Models;
 using StockMaster.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NoteTakerAPI", Version = "v1" });
+
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Description = "Example: 'Bearer abc...'",
@@ -44,6 +47,10 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
         }
     });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 builder.Services.AddScoped<IServiceWrapper, ServiceWrapper>();

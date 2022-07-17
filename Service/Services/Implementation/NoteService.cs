@@ -150,8 +150,6 @@ namespace Service.Services.Implementation
                 _repository.UserNoteRepository.Delete(userNote);
                 _repository.Save();
             }
-
-            
         }
 
         public void Share(UserNoteDto userNoteCreate, Guid userId)

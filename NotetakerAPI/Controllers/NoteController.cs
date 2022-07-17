@@ -82,7 +82,7 @@ namespace NotetakerAPI.Controllers
 
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -117,6 +117,25 @@ namespace NotetakerAPI.Controllers
                 var userId = Guid.Parse(HttpContext.Items["User"].ToString());
 
                 _services.NoteService.ChangeAccess(userNote, userId);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("share")]
+        [HttpDelete]
+        [Authorize]
+        public IActionResult RemoveAccessNote([FromQuery] Guid noteId, [FromQuery] string userEmail)
+        {
+            try
+            {
+                var userId = Guid.Parse(HttpContext.Items["User"].ToString());
+
+                _services.NoteService.RemoveAccess(noteId, userId, userEmail);
 
                 return Ok();
             }
