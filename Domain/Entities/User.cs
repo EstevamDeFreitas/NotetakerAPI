@@ -21,5 +21,6 @@ namespace Domain.Entities
         public string Password { get; set; }
 
         public IEnumerable<UserNote> UserNotes { get; set; }
+        public IEnumerable<ProjectUsers> ProjectUsers { get; set; }
     }
 }

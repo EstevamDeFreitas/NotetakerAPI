@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    [Table("ntr_notes")]
-    public class Note : EntityBase
+    [Table("ntr_projects")]
+    public class Project : EntityBase
     {
         [Required]
         [Column("ntr_title")]
@@ -23,7 +23,7 @@ namespace Domain.Entities
         [Column("ntr_style")]
         public int Style { get; set; }
 
-        public IEnumerable<UserNote> UserNotes { get; set; }
         public IEnumerable<ProjectNotes> ProjectNotes { get; set; }
+        public IEnumerable<ProjectUsers> ProjectUsers { get; set; }
     }
 }
