@@ -15,6 +15,9 @@ namespace Persistence.Repositories.Implementation
         private IUserRepository _userRepository;
         private INoteRepository _noteRepository;
         private IUserNoteRepository _userNoteRepository;
+        private IProjectUsersRepository _projectUsersRepository;
+        private IProjectRepository _projectRepository;
+        private IProjectNotesRepository _projectNotesRepository;
         public IUserRepository UserRepository
         {
             get 
@@ -49,6 +52,42 @@ namespace Persistence.Repositories.Implementation
                     _userNoteRepository = new UserNoteRepository(_dbContext);
                 }
                 return _userNoteRepository;
+            }
+        }
+
+        public IProjectNotesRepository ProjectNotesRepository
+        {
+            get
+            {
+                if(_projectNotesRepository is null)
+                {
+                    _projectNotesRepository = new ProjectNotesRepository(_dbContext);
+                }
+                return _projectNotesRepository;
+            }
+        }
+
+        public IProjectRepository ProjectRepository
+        {
+            get
+            {
+                if(_projectRepository is null)
+                {
+                    _projectRepository = new ProjectRepository(_dbContext);
+                }
+                return _projectRepository;
+            }
+        }
+
+        public IProjectUsersRepository ProjectUsersRepository
+        {
+            get
+            {
+                if(_projectUsersRepository is null)
+                {
+                    _projectUsersRepository = new ProjectUsersRepository(_dbContext);
+                }
+                return _projectUsersRepository;
             }
         }
 

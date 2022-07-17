@@ -11,6 +11,9 @@ namespace Persistence.Repositories.Interfaces
         IUserRepository UserRepository { get; }
         INoteRepository NoteRepository { get; }
         IUserNoteRepository UserNoteRepository { get; }
+        IProjectRepository ProjectRepository { get; }
+        IProjectNotesRepository ProjectNotesRepository { get; } 
+        IProjectUsersRepository ProjectUsersRepository { get; }
         void Save();
     }
 }
