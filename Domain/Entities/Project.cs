@@ -13,11 +13,11 @@ namespace Domain.Entities
     {
         [Required]
         [Column("ntr_title")]
-        [MaxLength(50)]
+        [MaxLength(255)]
         public string Title { get; set; }
         [Required]
         [Column("ntr_description")]
-        [MaxLength(255)]
+        [MaxLength(500)]
         public string Description { get; set; }
         [Required]
         [Column("ntr_style")]

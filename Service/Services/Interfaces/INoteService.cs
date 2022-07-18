@@ -17,6 +17,6 @@ namespace Service.Services.Interfaces
         void RemoveAccess(Guid noteId, Guid userId, string userEmail);
         void ChangeAccess(UserNoteDto userNoteUpdate, Guid userId);
         List<NoteDto> GetNotes(Guid userId);
-        bool HasAccess(Guid userId, Guid noteId, AccessLevel accessLevel);
+        void HasAccess(Guid userId, Guid noteId, AccessLevel accessLevel);
     }
 }

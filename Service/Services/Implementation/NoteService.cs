@@ -23,15 +23,7 @@ namespace Service.Services.Implementation
 
         public void ChangeAccess(UserNoteDto userNoteUpdate, Guid userId)
         {
-            if (!HasAccess(userId, userNoteUpdate.NoteId, AccessLevel.Owner))
-            {
-                if (!HasAccess(userId, userNoteUpdate.NoteId, AccessLevel.View))
-                {
-                    throw new NoteDoNotExist();
-                }
-
-                throw new PermissionInsufficient();
-            }
+            HasAccess(userId, userNoteUpdate.NoteId, AccessLevel.Owner);
 
             var userShared = _repository.UserRepository.FindByCondition(x => x.Email == userNoteUpdate.UserEmail).FirstOrDefault();
 
@@ -79,15 +71,7 @@ namespace Service.Services.Implementation
 
         public void Delete(Guid noteId, Guid userId)
         {
-            if (!HasAccess(userId, noteId, AccessLevel.Remove))
-            {
-                if(!HasAccess(userId, noteId, AccessLevel.View))
-                {
-                    throw new NoteDoNotExist();
-                }
-
-                throw new PermissionInsufficient();
-            }
+            HasAccess(userId, noteId, AccessLevel.Remove);
 
             var note = _repository.NoteRepository.FindByCondition(x => x.Id == noteId && x.UserNotes.Any(y => y.UserId == userId)).FirstOrDefault();
 
@@ -112,29 +96,27 @@ namespace Service.Services.Implementation
             return notes;
         }
 
-        public bool HasAccess(Guid userId, Guid noteId, AccessLevel accessLevel)
+        public void HasAccess(Guid userId, Guid noteId, AccessLevel accessLevel)
         {
             var access = _repository.UserNoteRepository.FindByCondition(x => x.UserId == userId && x.NoteId == noteId).FirstOrDefault();
 
             if(access is not null)
             {
-                return access.AccessLevel <= accessLevel;
+                if(accessLevel >= access.AccessLevel) 
+                { 
+                    return; 
+                }
+                else
+                {
+                    throw new PermissionInsufficient();
+                }
             }
-
-            return false;
+            throw new NoteDoNotExist();
         }
 
         public void RemoveAccess(Guid noteId, Guid userId, string userEmail)
         {
-            if (!HasAccess(userId, noteId, AccessLevel.Owner))
-            {
-                if (!HasAccess(userId, noteId, AccessLevel.View))
-                {
-                    throw new NoteDoNotExist();
-                }
-
-                throw new PermissionInsufficient();
-            }
+            HasAccess(userId, noteId, AccessLevel.Owner);
 
             var userShared = _repository.UserRepository.FindByCondition(x => x.Email == userEmail).FirstOrDefault();
 
@@ -154,15 +136,7 @@ namespace Service.Services.Implementation
 
         public void Share(UserNoteDto userNoteCreate, Guid userId)
         {
-            if (!HasAccess(userId, userNoteCreate.NoteId, AccessLevel.Owner))
-            {
-                if (!HasAccess(userId, userNoteCreate.NoteId, AccessLevel.View))
-                {
-                    throw new NoteDoNotExist();
-                }
-
-                throw new PermissionInsufficient();
-            }
+            HasAccess(userId, userNoteCreate.NoteId, AccessLevel.Owner);
 
             var userShared = _repository.UserRepository.FindByCondition(x => x.Email == userNoteCreate.UserEmail).FirstOrDefault();
 
@@ -193,15 +167,7 @@ namespace Service.Services.Implementation
 
         public void Update(NoteDto note, Guid userId)
         {
-            if (!HasAccess(userId, note.Id, AccessLevel.Edit))
-            {
-                if (!HasAccess(userId, note.Id, AccessLevel.View))
-                {
-                    throw new NoteDoNotExist();
-                }
-
-                throw new PermissionInsufficient();
-            }
+            HasAccess(userId, note.Id, AccessLevel.Edit);
 
             var oldNote = _repository.NoteRepository.FindByCondition(x => x.Id == note.Id && x.UserNotes.Any(x => x.UserId == userId)).FirstOrDefault();
 
