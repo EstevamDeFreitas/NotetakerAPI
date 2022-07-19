@@ -32,6 +32,11 @@ namespace Service.Services.Implementation
                 throw new UserDoNotExist();
             }
 
+            if(userShared.Id == userId)
+            {
+                throw new UserCantChangeHisAccessLevel();
+            }
+
             var userNote = _repository.UserNoteRepository.FindByCondition(x => x.UserId == userShared.Id && x.NoteId == userNoteUpdate.NoteId).FirstOrDefault();
 
             if(userNote is not null)
@@ -123,6 +128,11 @@ namespace Service.Services.Implementation
             if (userShared is null)
             {
                 throw new UserDoNotExist();
+            }
+
+            if (userShared.Id == userId)
+            {
+                throw new UserCantChangeHisAccessLevel();
             }
 
             var userNote = _repository.UserNoteRepository.FindByCondition(x => x.UserId == userShared.Id && x.NoteId == noteId).FirstOrDefault();
