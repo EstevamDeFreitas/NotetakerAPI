@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.DTO.User;
 using Service.Notations;
+using Service.Response;
 using Service.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -25,11 +26,18 @@ namespace Presentation.Controllers
             {
                 var token = _services.UserService.GenerateToken(user);
 
-                return Ok(token);
+                return Ok(new Response<string>
+                {
+                    Data = token,
+                    Message = "Token generated"
+                });
             }
             catch(Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -40,11 +48,17 @@ namespace Presentation.Controllers
             {
                 _services.UserService.Create(user);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "User created"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -60,11 +74,17 @@ namespace Presentation.Controllers
 
                 _services.UserService.Update(user);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "User updated"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -78,11 +98,17 @@ namespace Presentation.Controllers
 
                 _services.UserService.Delete(user, userId);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "User deleted"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
