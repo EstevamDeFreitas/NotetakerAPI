@@ -43,9 +43,9 @@ namespace Service.Services.Implementation
             this.repository.Save();
         }
 
-        public void Delete(UserDto user)
+        public void Delete(UserDto user, Guid userId)
         {
-            var userResult = this.repository.UserRepository.FindByCondition(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
+            var userResult = this.repository.UserRepository.FindByCondition(x => x.Email == user.Email && x.Password == user.Password && x.Id == userId).FirstOrDefault();
 
             if(userResult is not null)
             {

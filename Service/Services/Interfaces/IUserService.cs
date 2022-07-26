@@ -13,7 +13,7 @@ namespace Service.Services.Interfaces
         bool VerifyIfUserExists(UserDto user);
         void Create(UserCreateDto user);
         void Update(UserUpdateDto user);
-        void Delete(UserDto user);
+        void Delete(UserDto user, Guid userId);
         bool VerifyIfEmailIsInUse(string email);
         bool VerifyIfUserExists(Guid userId);
         string GenerateToken(UserDto user);

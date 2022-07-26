@@ -61,6 +61,18 @@ builder.Services.AddDbContext<NotetakerContext>(options =>
     options.UseNpgsql(configuration["ConnectionStrings:DbConnection"]);
 });
 
+builder.Services.AddCors(options =>
+{
+options.AddPolicy(name : "AllowAll",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin();
+                        policy.AllowAnyMethod();
+                        policy.AllowAnyHeader();
+                    }
+                        );
+});
+
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -70,6 +82,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
+
 
 app.UseMiddleware<TokenMiddleware>();
 

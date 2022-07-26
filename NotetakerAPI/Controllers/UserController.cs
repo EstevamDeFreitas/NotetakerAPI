@@ -74,7 +74,9 @@ namespace Presentation.Controllers
         {
             try
             {
-                _services.UserService.Delete(user);
+                var userId = Guid.Parse(HttpContext.Items["User"].ToString());
+
+                _services.UserService.Delete(user, userId);
 
                 return Ok();
             }
