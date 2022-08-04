@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,13 @@ namespace Persistence.Repositories.Implementation
     {
         public UserNoteRepository(NotetakerContext dbContext) : base(dbContext)
         {
+        }
+
+        public List<UserNote> GetUsersWithAccess(Guid noteId)
+        {
+            return this.DbContext.Set<UserNote>()
+                                .Where(x => x.NoteId == noteId)
+                                .Include(x => x.User).ToList();
         }
     }
 }

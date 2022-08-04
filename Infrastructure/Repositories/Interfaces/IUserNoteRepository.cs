@@ -9,5 +9,6 @@ namespace Persistence.Repositories.Interfaces
 {
     public interface IUserNoteRepository : IRepositoryBase<UserNote>
     {
+        List<UserNote> GetUsersWithAccess(Guid noteId);
     }
 }

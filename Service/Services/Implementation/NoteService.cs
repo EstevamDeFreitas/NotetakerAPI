@@ -101,6 +101,20 @@ namespace Service.Services.Implementation
             return notes;
         }
 
+        public List<UserNoteDto> GetUsersWithAccess(Guid noteId, Guid userid)
+        {
+            HasAccess(userid, noteId, AccessLevel.View);
+
+            var usersNote = _repository.UserNoteRepository.GetUsersWithAccess(noteId);
+
+            return usersNote.Select(x => new UserNoteDto
+            {
+                AccessLevel = x.AccessLevel,
+                NoteId = x.NoteId,
+                UserEmail = x.User.Email
+            }).ToList();
+        }
+
         public void HasAccess(Guid userId, Guid noteId, AccessLevel accessLevel)
         {
             var access = _repository.UserNoteRepository.FindByCondition(x => x.UserId == userId && x.NoteId == noteId).FirstOrDefault();

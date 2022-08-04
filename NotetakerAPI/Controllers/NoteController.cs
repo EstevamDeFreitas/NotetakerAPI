@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.DTO.Note;
 using Service.Notations;
+using Service.Response;
 using Service.Services.Interfaces;
 
 namespace NotetakerAPI.Controllers
@@ -26,11 +27,18 @@ namespace NotetakerAPI.Controllers
 
                 var notes = _services.NoteService.GetNotes(userId);
 
-                return Ok(notes);
+                return Ok(new Response<List<NoteDto>>
+                {
+                    Message = "Notes found",
+                    Data = notes
+                });
             }
             catch( Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -44,11 +52,17 @@ namespace NotetakerAPI.Controllers
 
                 _services.NoteService.Create(note, userId);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "Note created"
+                });
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -62,11 +76,17 @@ namespace NotetakerAPI.Controllers
 
                 _services.NoteService.Update(note, userId);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "Note updated"
+                });
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -80,11 +100,17 @@ namespace NotetakerAPI.Controllers
 
                 _services.NoteService.Delete(noteId, userId);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "Note deleted"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -99,11 +125,17 @@ namespace NotetakerAPI.Controllers
 
                 _services.NoteService.Share(userNote, userId);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "Note shared"
+                });
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -118,11 +150,17 @@ namespace NotetakerAPI.Controllers
 
                 _services.NoteService.ChangeAccess(userNote, userId);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "Access changed"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -137,11 +175,44 @@ namespace NotetakerAPI.Controllers
 
                 _services.NoteService.RemoveAccess(noteId, userId, userEmail);
 
-                return Ok();
+                return Ok(new Response<object>
+                {
+                    Message = "Access removed"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
+            }
+        }
+
+        [Route("shared/{noteId}")]
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetNoteAccesses(Guid noteId)
+        {
+            try
+            {
+                var userId = Guid.Parse(HttpContext.Items["User"].ToString());
+
+                var userNotes = _services.NoteService.GetUsersWithAccess(noteId, userId);
+
+                return Ok(new Response<List<UserNoteDto>>
+                {
+                    Message = "Accesses found",
+                    Data = userNotes
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response<object>
+                {
+                    Message = ex.Message,
+                });
             }
         }
 
